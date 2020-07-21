@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /jd-oss
+
+spring:
+  profiles:
+    active: dev
+
+system:
+  oss:
+    access_key: xxxxx
+    access_secret: xxxx
+    end_point: s3.cn-north-1.jcloudcs.com
+    region: cn-north-1
+    bucket_name: nanmeiying-test
+    max_size: 104857600  #100M
+
+

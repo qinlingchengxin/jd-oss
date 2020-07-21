@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>file upload</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/3.1.1/jquery.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#file").change(function () {
+                var fileName = $(this).val();
+                var fileExtension = fileName.split('.').pop().toLowerCase();
+                $.ajax({
+                    type: "GET",
+                    url: "init?ext=" + fileExtension,
+                    datatype: "text",
+                    success: function (result) {
+                        $("#key").val(result.key);
+                        $("#policy").val(result.policy);
+                        $("#status").val(result.status);
+                        $("#credential").val(result.credential);
+                        $("#algorithm").val(result.algorithm);
+                        $("#amz").val(result.amz);
+                        $("#signature").val(result.signature);
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+<form th:action="${action}" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="key" name="key"/>
+    <input type="hidden" id="policy" name="Policy"/>
+    <input type="hidden" id="status" name="success_action_status"/>
+    <input type="hidden" id="credential" name="X-Amz-Credential"/>
+    <input type="hidden" id="algorithm" name="X-Amz-Algorithm"/>
+    <input type="hidden" id="amz" name="X-Amz-Date"/>
+    <input type="hidden" id="signature" name="X-Amz-Signature"/>
+
+    <input id="file" type="file" name="file"/>
+    <input type="submit" name="submit" value="upload" style="margin-left: 50px;"/>
+</form>
+</body>
+</html>
